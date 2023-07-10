@@ -1,9 +1,13 @@
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
 from django.db import models
+import json
 
 
 class User(AbstractBaseUser):
+    """
+        User Model
+    """
     ROLES = (
         ('manager', 'manager'),
         ('distributor', 'distributor'),
@@ -34,3 +38,21 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class Log(models.Model):
+    """
+        Log Model ( IP, Date, HD, serial )
+    """
+    data = models.TextField(null=False, blank=False)
+
+    def set_data(self, data):
+        self.data = json.dumps(data)
+
+    def get_data(self):
+        return json.loads(self.data)
+
+    def __str__(self):
+        test = self.set_data(self.data)
+        return str(test)
+

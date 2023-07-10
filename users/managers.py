@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
         if not phone_number:
             raise ValueError('Enter your phone number')
 
-        user = self.model(email=email, first_name=first_name, last_name=last_name, phone_number=phone_number)
+        user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name, phone_number=phone_number)
         user.set_password(password)
         user.save()
         return user
