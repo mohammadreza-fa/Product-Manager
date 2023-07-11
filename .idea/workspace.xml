@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab3ca149-0c01-4305-8205-9222d9ef0338" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serial\sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serials/sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serials/sefsfsesefse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Serials\sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serial\ sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serial\drgdrg gdgdrg.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serial\fthfh fthfthtf.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serial\sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serials\ sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serials\sefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/\Serialssefsfse sefsef.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/customers/api_urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers/api_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/customers/api_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/customers/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/distributors/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/distributors/api_urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distributors/api_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/distributors/api_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/distributors/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/distributors/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/managers/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/managers/api_urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/managers/api_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/managers/api_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/managers/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/managers/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_manager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_manager/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product_manager/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product_manager/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +49,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689044262637</updated>
-      <workItem from="1689044263938" duration="17177000" />
+      <workItem from="1689044263938" duration="17705000" />
     </task>
     <servers />
   </component>
