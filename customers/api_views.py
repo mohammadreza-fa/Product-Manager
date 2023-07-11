@@ -1,20 +1,40 @@
-class SerialDetail(DestroyModelMixin, RetrieveAPIView):
+from rest_framework.generics import RetrieveAPIView, ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from products.models import *
+from .serializers import *
+
+
+class UserDetail(RetrieveAPIView):
     """
-        Detail of User for Managers
+        Detail of User for Customers
     """
-    serializer_class = SerialSerializer
-    queryset = Serial.objects.all()
-    lookup_field = 'serial'
+    serializer_class = UserSerializerCustomers
+    lookup_field = 'email'
+    permission_classes = [IsAuthenticated, ]
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.usage += 1
+    def get_queryset(self):
+        return User.objects.filter(email=self.request.user.email)
 
-        if instance.usage == 5:
-            return self.destroy(request, *args, **kwargs)
 
-        instance.save()
+class ProductList(ListAPIView):
+    """
+        List of User Products for Customers
+    """
+    serializer_class = ProductSerializerCustomers
+    permission_classes = [IsAuthenticated, ]
 
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return Product.objects.filter(email=self.request.user.email).all()
 
+
+class ProductDetail(RetrieveAPIView):
+    """
+        Detail of Product for Customers
+    """
+    serializer_class = ProductSerializerCustomers
+    lookup_field = "serial__serial"
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        return Product.objects.filter(email=self.request.user.email).first()

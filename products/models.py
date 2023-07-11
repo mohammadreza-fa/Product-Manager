@@ -15,6 +15,7 @@ class EmailTemplate(models.Model):
 class Serial(models.Model):
     serial = models.CharField(max_length=25, unique=True)
     usage = models.IntegerField(default=0)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.serial
@@ -36,7 +37,7 @@ class Product(models.Model):
     serial = models.ForeignKey(Serial, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} | {self.first_name} {self.last_name}'
 
     class Meta:
         verbose_name = 'Product'
@@ -66,13 +67,11 @@ class Property(models.Model):
         return (self.product.price * self.distributor_share) / 100
 
 
-class Email(models.EmailField):
-    to = models.EmailField(null=False, blank=False)
-    subject = models.CharField(max_length=55, null=False, blank=False)
-    text = models.TextField(null=False, blank=False)
+class Email(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=False, related_name='EmailProduct')
 
     def __str__(self):
-        return f'{self.subject} | {self.to}'
+        return f'{self.product.name} | {self.product.email}'
 
     class Meta:
         verbose_name = 'Email'

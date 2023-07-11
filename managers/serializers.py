@@ -1,8 +1,11 @@
+from product_manager.settings import EMAIL_HOST_PAASWORD, EMAIL_HOST_USER, EMAIL_HOST, EMAIL_PORT_SSL
+from email.message import EmailMessage
 from rest_framework import serializers
-from datetime import datetime
-from users.models import User
 from products.models import *
+from users.models import User
+from datetime import datetime
 from random import randint
+import smtplib
 
 
 class UserSerializerManager(serializers.ModelSerializer):
@@ -15,11 +18,21 @@ class UserSerializerManager(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = make_password(validated_data['password'])
+        is_admin = False
+        is_staff = False
+        if validated_data['role'] == 'manager':
+            is_admin =True
+            is_staff = True
+        if validated_data['role'] == 'distributor':
+            is_staff = True
         user = User.objects.create(
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],
+            is_admin=is_admin,
+            is_staff=is_staff,
+            role=validated_data['role'],
             password=password
         )
         return user
@@ -32,7 +45,7 @@ class ProductSerializerManager(serializers.ModelSerializer):
 
     def create(self, validated_data):
         date = datetime.now().strftime('%d%m%y')
-        serial = Serial.objects.create(serial=f"{validated_data['product_id']}-{date}-{randint(1000, 9999)}-{randint(1000, 9999)}")
+        serial = Serial.objects.create(serial=f"{validated_data['product_id']}-{date}-{randint(0000, 9999)}-{randint(0000, 9999)}")
         product = Product.objects.create(
             product_id=validated_data['product_id'],
             name=validated_data['name'],
@@ -46,11 +59,42 @@ class ProductSerializerManager(serializers.ModelSerializer):
             registrant=validated_data['registrant'],
             serial=serial
         )
+        template = product.template.template
+
         with open(f'Serials/{product.first_name} {product.last_name}.txt', 'w') as file:
-            template = product.template.template
-            # email_content = template.format(product.first_name, product.last_name, product.serial, product.first_name, product.last_name, product.email)
-            email_content2 = template.replace('{first_name}', product.first_name).replace('{last_name}', product.last_name).replace('{serial}', serial.serial).replace('{email}', product.email)
-            file.write(email_content2)
+
+            if '{first_name}' in template:
+                template = template.replace('{first_name}', product.first_name)
+            if '{last_name}' in template:
+                template = template.replace('{last_name}', product.last_name)
+            if '{email}' in template:
+                template = template.replace('{email}', product.email)
+            if '{phone_number}' in template:
+                template = template.replace('{phone_number}', product.phone_number)
+            if '{serial}' in template:
+                template = template.replace('{serial}', product.serial.serial)
+            if '{price}' in template:
+                template = template.replace('{price}', product.price)
+            if '{product_name}' in template:
+                template = template.replace('{product_name}', product.name)
+            if '{registrant}' in template:
+                template = template.replace('{registrant}', product.registrant.last_name)
+            if '{comment}' in template:
+                template = template.replace('{comment}', product.comment)
+
+            email_content = template
+            file.write(email_content)
+
+            subject = product.name
+            to = product.email
+            msg = EmailMessage()
+            msg['Subject'] = f"{subject}"
+            msg['From'] = EMAIL_HOST_USER
+            msg['To'] = f"{to}"
+            msg.set_content(f'{template}')
+            with smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT_SSL) as server:
+                server.login(EMAIL_HOST_USER, EMAIL_HOST_PAASWORD)
+                server.send_message(msg)
 
         return product
 
@@ -61,7 +105,7 @@ class SerialSerializerManagers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PropertySerializersManagers(serializers.ModelSerializer):
+class PropertySerializerManagers(serializers.ModelSerializer):
     dev_share = serializers.ReadOnlyField()
     dist_share = serializers.ReadOnlyField()
     debt = serializers.ReadOnlyField()
@@ -71,7 +115,13 @@ class PropertySerializersManagers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class EmailSerializersManagers(serializers.ModelSerializer):
+class EmailTemplateSerializerManager(serializers.ModelSerializer):
+    class Meta:
+        model = EmailTemplate
+        fields = '__all__'
+
+
+class EmailSerializerManagers(serializers.ModelSerializer):
     class Meta:
         model = Email
         fields = '__all__'
