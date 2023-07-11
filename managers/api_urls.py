@@ -28,9 +28,6 @@ urlpatterns = [
     path('property/update/<int:id>/', PropertyUpdate.as_view(), name='ManagerUpdatePropertyID'),
     path('property/detail/<int:id>/', PropertyDetail.as_view(), name='ManagerDetailPropertyID'),
     path('property/destroy/<int:id>/', PropertyDestroy.as_view(), name='ManagerDestroyPropertyID'),
-    path('property/update/<serial__serial>/', PropertyUpdateSerial.as_view(), name='ManagerUpdatePropertySerial'),
-    path('property/destroy/<serial__serial>/', PropertyDestroySerial.as_view(), name='ManagerDestroyPropertySerial'),
-    path('property/detail/<serial__serial>/', PropertyDetailSerial.as_view(), name='ManagerDetailPropertySerial'),
     # Emails
     path('email/list/', EmailList.as_view(), name='ManagersListEmail'),
     path('email/create/', EmailCreate.as_view(), name='ManagersCreateEmail'),

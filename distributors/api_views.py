@@ -3,8 +3,10 @@ from product_manager.settings import EMAIL_HOST_PAASWORD, EMAIL_HOST_USER, EMAIL
 from permissions import IsManagerOrDistributorUser
 from email.message import EmailMessage
 from users.models import User
+from datetime import datetime
 from products.models import *
 from .serializers import *
+from random import randint
 import smtplib
 
 
@@ -27,7 +29,7 @@ class UserUpdate(RetrieveUpdateAPIView):
         Update User by Distributors
     """
     serializer_class = UserSerializerDistributor
-    queryset = User.objects.filter(role='customer').all()
+    queryset = User.objects.filter(role='manager')
     lookup_field = 'email'
     permission_classes = [IsManagerOrDistributorUser, ]
 

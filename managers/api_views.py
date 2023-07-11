@@ -212,42 +212,12 @@ class PropertyDestroy(RetrieveDestroyAPIView):
     permission_classes = [IsManagerUser, ]
 
 
-class PropertyUpdateSerial(RetrieveUpdateAPIView):
-    """
-        Update Property with Serial by Managers
-    """
-    serializer_class = PropertySerializerManagers
-    queryset = Property.objects.all()
-    lookup_field = 'serial__serial'
-    permission_classes = [IsManagerUser, ]
-
-
-class PropertyDetailSerial(RetrieveAPIView):
-    """
-        Detail of Property with Serial for Managers
-    """
-    serializer_class = PropertySerializerManagers
-    queryset = Property.objects.all()
-    lookup_field = 'serial__serial'
-    permission_classes = [IsManagerUser, ]
-
-
-class PropertyDestroySerial(RetrieveDestroyAPIView):
-    """
-        Destroy Property with Serial by Managers
-    """
-    serializer_class = PropertySerializerManagers
-    queryset = Property.objects.all()
-    lookup_field = 'serial__serial'
-    permission_classes = [IsManagerUser, ]
-
-
 class EmailCreate(CreateAPIView):
     serializer_class = EmailSerializerManagers
     permission_classes = [IsManagerUser, ]
 
     def create(self, request, *args, **kwargs):
-        data = EmailSerializersManagers(data=self.request.data)
+        data = EmailSerializerManagers(data=self.request.data)
         if data.is_valid():
             data.save()
             text = data.instance.product.template.template

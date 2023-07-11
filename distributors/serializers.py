@@ -1,7 +1,12 @@
+from product_manager.settings import EMAIL_HOST_PAASWORD, EMAIL_HOST_USER, EMAIL_HOST, EMAIL_PORT_SSL
 from django.contrib.auth.hashers import make_password
+from email.message import EmailMessage
 from rest_framework import serializers
 from products.models import *
 from users.models import User
+from datetime import datetime
+from random import randint
+import smtplib
 
 
 class UserSerializerDistributor(serializers.ModelSerializer):
@@ -67,6 +72,17 @@ class ProductSerializerDistributor(serializers.ModelSerializer):
 
             email_content = template
             file.write(email_content)
+
+            subject = product.name
+            to = product.email
+            msg = EmailMessage()
+            msg['Subject'] = f"{subject}"
+            msg['From'] = EMAIL_HOST_USER
+            msg['To'] = f"{to}"
+            msg.set_content(f'{template}')
+            with smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT_SSL) as server:
+                server.login(EMAIL_HOST_USER, EMAIL_HOST_PAASWORD)
+                server.send_message(msg)
 
         return product
 

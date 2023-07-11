@@ -6,8 +6,8 @@ urlpatterns = [
     # Users
     path('user/list/', UserList.as_view(), name='DistributorsListUser'),
     path('user/create/', UserCreate.as_view(), name='DistributorsCreateListUser'),
-    path('user/update/<str:email>', UserUpdate.as_view(), name='DistributorsUpdateUser'),
-    path('user/detail/<str:email>', UserDetail.as_view(), name='DistributorsDetailUser'),
+    path('user/update/<str:email>/', UserUpdate.as_view(), name='DistributorsUpdateUser'),
+    path('user/detail/<str:email>/', UserDetail.as_view(), name='DistributorsDetailUser'),
     # Products
     path('product/list/', ProductList.as_view(), name='DistributorsListProduct'),
     path('product/create/', ProductCreate.as_view(), name='DistributorsCreateProduct'),
